@@ -10,6 +10,8 @@ class UserSignupTest < ActionDispatch::IntegrationTest
                              password_confirmation: "bar" }
     end
     assert_template 'users/new'
+    assert_select 'div#error_explanation'
+    assert_select 'div.alert.alert-danger'
   end
 
   test "valid signup information" do
@@ -21,5 +23,9 @@ class UserSignupTest < ActionDispatch::IntegrationTest
                              password_confirmation: "password" }
     end
     assert_template 'users/show'
+    assert flash[:success]
+    assert_not flash[:danger]
+    assert_select 'div.alert.alert-success'
+    assert_select 'div.alert.alert-danger', false
   end
 end
