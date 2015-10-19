@@ -24,8 +24,9 @@ class ActiveSupport::TestCase
         password: password,
         remember_me: remember_me
       }
+    else
+      session[:user_id] = user.id
     end
-    session[:user_id] = user.id
   end
 
   private
